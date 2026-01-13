@@ -40,8 +40,9 @@ pipeline {
     }
 
     environment {
-        DOCKERHUB_USER = 'cloudbeesdemo'
-        IMAGE_NAME = "${DOCKERHUB_USER}/hackers-api"
+        // Using credentials for DockerHub username - set 'dockerhub-user' credential in Jenkins
+        DOCKERHUB_USER = credentials('dockerhub-user')
+        IMAGE_NAME = "${DOCKERHUB_USER}/j-hackers-api"
         TAR_FILE = "container-image.tar"
         REGISTRY = "docker.io"
         IMAGE_TAG = "3.0-${BUILD_NUMBER}"
@@ -149,16 +150,20 @@ pipeline {
             }
         }
 
-        stage('Register Build Artifact') {
+        stage('Build Summary') {
             steps {
-                registerBuildArtifactMetadata(
-                    name: "hackers-api",
-                    url: "docker.io/${env.IMAGE_NAME}:${env.IMAGE_TAG}",
-                    version: "${env.IMAGE_TAG}",
-                    digest: "${GIT_COMMIT}",
-                    label: "demo",
-                    type: "container"
-                )
+                echo """
+                ============================================
+                BUILD COMPLETE
+                ============================================
+                Image: ${env.REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}
+                Commit: ${GIT_COMMIT}
+
+                Note: For CloudBees CI, this stage would use
+                registerBuildArtifactMetadata() to register
+                the artifact with CloudBees Unify.
+                ============================================
+                """
             }
         }
     }
