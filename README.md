@@ -1,5 +1,7 @@
 # Hackers API
 
+> Forked by jalts-808 for 3demo project - January 2025
+
 A Go-based REST API that mirrors Hacker News content, providing endpoints for top stories, Show HN, and Ask HN posts. Built with Gin and featuring Swagger documentation.
 
 ## Features
