@@ -51,7 +51,7 @@ jobs:
             image:
               repository: ${{ secrets.DOCKERHUB_USER }}/hackers-api
               tag: ${{ inputs.artifactVersion }}
-            hostname: hackers-api.54.214.225.132.nip.io
+            hostname: hackers-api.54.189.62.135.nip.io
             ingress:
               className: traefik
       - name: Register deployed artifact
@@ -64,6 +64,6 @@ jobs:
         with:
           content: |-
             ## Deployed environment
-            [API endpoint](http://hackers-api.54.214.225.132.nip.io/)
+            [API endpoint](http://hackers-api.54.189.62.135.nip.io/)
             Running hackers-api:${{ inputs.artifactVersion }}
           format: MARKDOWN
