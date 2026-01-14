@@ -49,7 +49,7 @@ jobs:
           namespace: ${{ vars.namespace }}
           values: |
             image:
-              repository: ${{ secrets.DOCKERHUB_USER }}/hackers-api
+              repository: ${{ secrets.DOCKERHUB_USER }}/j-hackers-api
               tag: ${{ inputs.artifactVersion }}
             hostname: hackers-api.54.189.62.135.nip.io
             ingress:
