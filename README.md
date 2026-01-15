@@ -146,4 +146,4 @@ go tool cover -html=coverage.txt
 - [Swagger/Swag](https://github.com/swaggo/swag)
 
 ---
-*Last updated: January 14, 2025 - Testing CloudBees Unify Jenkins integration*
+*Last updated: January 14, 2026 - Jenkins → Unify connection verified*
