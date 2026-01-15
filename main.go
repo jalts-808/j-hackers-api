@@ -1,5 +1,7 @@
 package main
 
+// Build trigger: Testing Jenkins-Unify integration - 2026-01-14
+
 import (
 	"encoding/json"
 	"fmt"
