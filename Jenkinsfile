@@ -142,7 +142,7 @@ pipeline {
                             buildah tag ${env.IMAGE_NAME}:${env.IMAGE_TAG} ${env.REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}
                             buildah tag ${env.IMAGE_NAME}:${env.IMAGE_TAG} ${env.REGISTRY}/${env.IMAGE_NAME}:latest
                             buildah login -u ${REGISTRY_USER} -p ${REGISTRY_PASS} ${env.REGISTRY}
-                            buildah push ${env.REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}
+                            buildah push --digestfile=image-digest.txt ${env.REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}
                             buildah push ${env.REGISTRY}/${env.IMAGE_NAME}:latest
                         """
                     }
@@ -150,18 +150,27 @@ pipeline {
             }
         }
 
-        stage('Build Summary') {
+        stage('Register Artifact') {
             steps {
+                script {
+                    def imageDigest = readFile('image-digest.txt').trim()
+                    echo "Image digest: ${imageDigest}"
+
+                    registerBuildArtifactMetadata(
+                        name: "hackers-api",
+                        url: "${env.REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}",
+                        version: "${env.IMAGE_TAG}",
+                        digest: imageDigest,
+                        type: "Container"
+                    )
+                }
+
                 echo """
                 ============================================
-                BUILD COMPLETE
+                BUILD COMPLETE - ARTIFACT REGISTERED
                 ============================================
                 Image: ${env.REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}
                 Commit: ${GIT_COMMIT}
-
-                Note: For CloudBees CI, this stage would use
-                registerBuildArtifactMetadata() to register
-                the artifact with CloudBees Unify.
                 ============================================
                 """
             }
