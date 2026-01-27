@@ -150,6 +150,21 @@ pipeline {
             }
         }
 
+        stage('Register Artifact with CloudBees') {
+            steps {
+                script {
+                    def artifactId = registerBuildArtifactMetadata(
+                        name: "${env.IMAGE_NAME}",
+                        type: 'CONTAINER',
+                        version: "${env.IMAGE_TAG}",
+                        url: "${env.REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
+                    )
+                    env.ARTIFACT_ID = artifactId
+                    echo "Registered artifact with CloudBees. Artifact ID: ${artifactId}"
+                }
+            }
+        }
+
         stage('Build Summary') {
             steps {
                 echo """
@@ -158,10 +173,7 @@ pipeline {
                 ============================================
                 Image: ${env.REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}
                 Commit: ${GIT_COMMIT}
-
-                Note: For CloudBees CI, this stage would use
-                registerBuildArtifactMetadata() to register
-                the artifact with CloudBees Unify.
+                Artifact ID: ${env.ARTIFACT_ID}
                 ============================================
                 """
             }
