@@ -1,6 +1,6 @@
 package main
 
-// Build trigger: Testing Jenkins-Unify integration - 2026-01-14
+// Build trigger: Verify Jenkins webhook after CloudBees reconnect - 2026-01-27
 
 import (
 	"encoding/json"
