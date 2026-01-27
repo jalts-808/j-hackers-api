@@ -49,7 +49,7 @@ jobs:
           namespace: ${{ vars.namespace }}
           values: |
             image:
-              repository: ${{ secrets.DOCKERHUB_USER }}/hackers-api
+              repository: ${{ secrets.DOCKERHUB_USER }}/j-hackers-api
               tag: ${{ inputs.artifactVersion }}
             hostname: ${{ vars.host_prefix }}hackers-api.54.201.69.176.nip.io
             ingress:
@@ -66,5 +66,5 @@ jobs:
           content: |-
             ## Deployed to ${{ inputs.environment }}
             [API endpoint](http://${{ vars.host_prefix }}hackers-api.54.201.69.176.nip.io/)
-            Running hackers-api:${{ inputs.artifactVersion }}
+            Running j-hackers-api:${{ inputs.artifactVersion }}
           format: MARKDOWN
