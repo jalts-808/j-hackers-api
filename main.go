@@ -1,6 +1,6 @@
 package main
 
-// Build trigger: Verify Jenkins webhook after CloudBees reconnect - 2026-01-27
+// Build trigger: Test GitHub webhook auto-trigger - 2026-01-27
 
 import (
 	"encoding/json"
